@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PolytechApplicationTests {
+public class PolytechApplicationTest {
 
 	@Test
 	public void test() {
-		assertThat(1).isEqualTo(1);
+		assertThat(1).isEqualTo(2);
 	}
 
 }
