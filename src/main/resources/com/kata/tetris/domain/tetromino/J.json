@@ -1,0 +1,26 @@
+{
+  "type": "J",
+  "size": 3,
+  "shapeByOrientations": {
+    "NORTH":[
+      [true,false,false],
+      [true,true,true],
+      [false,false,false]
+    ],
+    "EAST":[
+      [false,true,true],
+      [false,true,false],
+      [false,true,false]
+    ],
+    "SOUTH":[
+      [false,false,false],
+      [true,true,true],
+      [false,false,true]
+    ],
+    "WEST":[
+      [false,true,false],
+      [false,true,false],
+      [true,true,false]
+    ]
+  }
+}

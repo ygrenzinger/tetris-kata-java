@@ -1,0 +1,30 @@
+{
+  "type": "O",
+  "size": 4,
+  "shapeByOrientations": {
+    "NORTH":[
+      [false,true,true,false],
+      [false,true,true,false],
+      [false,false,false,false],
+      [false,false,false,false]
+    ],
+    "EAST":[
+      [false,true,true,false],
+      [false,true,true,false],
+      [false,false,false,false],
+      [false,false,false,false]
+    ],
+    "SOUTH":[
+      [false,true,true,false],
+      [false,true,true,false],
+      [false,false,false,false],
+      [false,false,false,false]
+    ],
+    "WEST":[
+      [false,true,true,false],
+      [false,true,true,false],
+      [false,false,false,false],
+      [false,false,false,false]
+    ]
+  }
+}
