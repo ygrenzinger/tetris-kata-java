@@ -57,7 +57,7 @@ class FieldTest {
     @Test
     void should_move_down_some_tetromino() {
         field.createNewTetrominoAtTop(shapeT);
-        TetrominoState state = field.moveDownTetromino();
+        TetrominoState state = field.moveTetrominoDown();
         assertThat(state).isEqualTo(TetrominoState.MOVING);
 
         assertThat(field.blockAt(23, 4)).isEqualTo(Block.EMPTY);
@@ -74,7 +74,7 @@ class FieldTest {
     void should_move_some_tetromino_until_reaching_the_ground() {
         field.createNewTetrominoAtTop(shapeT);
         int numberOfMoves = 0;
-        while (field.moveDownTetromino() != TetrominoState.REACHED_GROUND) {
+        while (field.moveTetrominoDown() != TetrominoState.REACHED_GROUND) {
             numberOfMoves++;
         }
 
@@ -116,7 +116,7 @@ class FieldTest {
     @Test
     void should_move_some_tetromino_to_the_right() {
         field.createNewTetrominoAtTop(shapeT);
-        field.moveRightTetromino();
+        field.moveTetrominoRight();
 
         assertThat(field.blockAt(23, 4)).isEqualTo(Block.EMPTY);
         assertThat(field.blockAt(22, 3)).isEqualTo(Block.EMPTY);
@@ -132,7 +132,7 @@ class FieldTest {
         field.createNewTetrominoAtTop(shapeI);
 
         field.rotateTetromino();
-        IntStream.range(0, 10).forEach(i -> field.moveRightTetromino());
+        IntStream.range(0, 10).forEach(i -> field.moveTetrominoRight());
 
         assertThat(field.blockAt(23, 9)).isEqualTo(Block.MOVING);
         assertThat(field.blockAt(22, 9)).isEqualTo(Block.MOVING);
@@ -160,7 +160,7 @@ class FieldTest {
         field.createNewTetrominoAtTop(shapeI);
 
         field.rotateTetromino();
-        IntStream.range(0, 10).forEach(i -> field.moveRightTetromino());
+        IntStream.range(0, 10).forEach(i -> field.moveTetrominoRight());
 
         field.rotateTetromino();
 
@@ -174,10 +174,10 @@ class FieldTest {
     void should_fix_tetromino_which_have_reached_the_ground() {
         //given
         field.createNewTetrominoAtTop(shapeT);
-        IntStream.range(0, DEFAULT_HEIGHT).forEach(i -> field.moveDownTetromino());
+        IntStream.range(0, DEFAULT_HEIGHT).forEach(i -> field.moveTetrominoDown());
 
         //when
-        int nbOfLinesRemoved = field.moveDownTetrominoAndFixIfReachedTheGround(() -> shapeI);
+        int nbOfLinesRemoved = field.movingDownAutomatically(() -> shapeI);
 
         //then
         assertThat(nbOfLinesRemoved).isEqualTo(0);
@@ -192,12 +192,12 @@ class FieldTest {
         //given
         field.createNewTetrominoAtTop(shapeI);
         field.rotateTetromino();
-        IntStream.range(0, DEFAULT_HEIGHT).forEach(i -> field.moveDownTetromino());
-        field.moveDownTetrominoAndFixIfReachedTheGround(() -> shapeT);
-        IntStream.range(0, DEFAULT_HEIGHT).forEach(i -> field.moveDownTetromino());
+        IntStream.range(0, DEFAULT_HEIGHT).forEach(i -> field.moveTetrominoDown());
+        field.movingDownAutomatically(() -> shapeT);
+        IntStream.range(0, DEFAULT_HEIGHT).forEach(i -> field.moveTetrominoDown());
 
         //when
-        field.moveDownTetrominoAndFixIfReachedTheGround(() -> shapeT);
+        field.movingDownAutomatically(() -> shapeT);
 
         //then
         assertThat(field.blockAt(5, 4)).isEqualTo(Block.FIXED);
@@ -219,10 +219,10 @@ class FieldTest {
         field.createNewTetrominoAtTop(shapeI);
         field.rotateTetromino();
         IntStream.range(0, DEFAULT_WIDTH).forEach(i -> field.moveLeftTetromino());
-        IntStream.range(0, DEFAULT_HEIGHT).forEach(i -> field.moveDownTetromino());
+        IntStream.range(0, DEFAULT_HEIGHT).forEach(i -> field.moveTetrominoDown());
 
         //when fixing on the ground
-        int nbOfLinesRemoved = field.moveDownTetrominoAndFixIfReachedTheGround(() -> shapeI);
+        int nbOfLinesRemoved = field.movingDownAutomatically(() -> shapeI);
 
         //then
         assertThat(field.height()).isEqualTo(DEFAULT_HEIGHT);

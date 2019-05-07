@@ -1,26 +1,25 @@
 package com.kata.tetris.domain;
 
-public class Score {
-    private int value;
+import java.util.concurrent.atomic.AtomicInteger;
 
-    private Score(int value) {
-        this.value = value;
-    }
+public class Score {
+    private AtomicInteger value;
 
     public Score() {
-        this(0);
+        this.value= new AtomicInteger(0);
     }
 
-    public Score increaseScoreFor(int nbOfLineRemoved) {
+    public void increaseScoreFor(int nbOfLineRemoved) {
+        int old = value.get();
         if (nbOfLineRemoved == 4) {
-            return new Score(value + 800);
+            value.set(old + 800);
         } else {
-            return new Score(value + (nbOfLineRemoved * 100));
+            value.set(old + (nbOfLineRemoved * 100));
         }
     }
 
     @Override
     public String toString() {
-        return String.valueOf(value);
+        return String.valueOf(value.get());
     }
 }

@@ -9,13 +9,15 @@ class ScoreTest {
     @Test
     void should_score_100_for_each_line_removed() {
         Score score = new Score();
-        assertThat(score.increaseScoreFor(3).toString()).isEqualTo("300");
+        score.increaseScoreFor(3);
+        assertThat(score.toString()).isEqualTo("300");
     }
 
     @Test
     void should_score_400_if_4_lines_removed() {
         Score score = new Score();
-        assertThat(score.increaseScoreFor(4).toString()).isEqualTo("800");
+        score.increaseScoreFor(4);
+        assertThat(score.toString()).isEqualTo("800");
     }
 
 }

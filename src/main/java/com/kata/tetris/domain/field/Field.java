@@ -62,11 +62,11 @@ public class Field {
         actOnTetromino(Tetromino::moveLeft);
     }
 
-    public void moveRightTetromino() {
+    public void moveTetrominoRight() {
         actOnTetromino(Tetromino::moveRight);
     }
 
-    public TetrominoState moveDownTetromino() {
+    public TetrominoState moveTetrominoDown() {
         Optional<Tetromino> tetromino = actOnTetromino(Tetromino::moveDown);
         if (!tetromino.isPresent()) {
             return TetrominoState.REACHED_GROUND;
@@ -74,8 +74,8 @@ public class Field {
         return TetrominoState.MOVING;
     }
 
-    public int moveDownTetrominoAndFixIfReachedTheGround(Supplier<Shape> shapeSupplier) {
-        TetrominoState state = moveDownTetromino();
+    public int movingDownAutomatically(Supplier<Shape> shapeSupplier) {
+        TetrominoState state = moveTetrominoDown();
         if (state == TetrominoState.REACHED_GROUND) {
             fixTetromino();
             int numberOfLineRemoved = removeFullLines();

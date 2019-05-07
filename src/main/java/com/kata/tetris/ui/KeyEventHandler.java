@@ -1,6 +1,6 @@
 package com.kata.tetris.ui;
 
-import com.kata.tetris.Tetris;
+import com.kata.tetris.domain.Tetris;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
