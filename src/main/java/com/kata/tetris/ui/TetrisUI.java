@@ -3,6 +3,7 @@ package com.kata.tetris.ui;
 import com.kata.tetris.domain.Score;
 import com.kata.tetris.domain.UpdateUI;
 import com.kata.tetris.domain.field.Field;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -33,24 +34,33 @@ public class TetrisUI extends GridPane implements UpdateUI {
     }
 
     @Override
-    public void updateUI(Field field, Score score) {
+    public void updateUI(Field field, Score score, boolean gameOver) {
+        Platform.runLater(() -> {
+            updatingGrid(field);
+            labelScore.setText(SCORE_LABEL_TEXT + score);
+        });
+    }
+
+    private void updatingGrid(Field field) {
         for (int row = 0; row < DEFAULT_HEIGHT; row++) {
             for (int column = 0; column < DEFAULT_WIDTH; column++) {
-                switch (field.blockAt(row, column)) {
-                    case FIXED:
-                        cellGrid.get(row).get(column).setStyle("-fx-background-color : grey");
-                        break;
-                    case EMPTY:
-                        cellGrid.get(row).get(column).setStyle("-fx-background-color : white");
-                        break;
-                    default:
-                        cellGrid.get(row).get(column).setStyle("-fx-background-color : blue");
-                        break;
-                }
+                updatingBlock(field, row, column);
             }
         }
-        System.out.println(score);
-        labelScore.setText(SCORE_LABEL_TEXT + score);
+    }
+
+    private void updatingBlock(Field field, int row, int column) {
+        switch (field.blockAt(row, column)) {
+            case FIXED:
+                cellGrid.get(row).get(column).setStyle("-fx-background-color : grey");
+                break;
+            case EMPTY:
+                cellGrid.get(row).get(column).setStyle("-fx-background-color : white");
+                break;
+            default:
+                cellGrid.get(row).get(column).setStyle("-fx-background-color : blue");
+                break;
+        }
     }
 
     private static Label initLabelScore() {

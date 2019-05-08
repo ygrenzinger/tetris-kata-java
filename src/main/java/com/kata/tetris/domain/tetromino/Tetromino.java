@@ -64,7 +64,7 @@ public class Tetromino {
     }
 
     private List<Position> computeCurrentPositions(Shape shape, int rowPosition, int columnPosition, Orientation orientation) {
-        boolean[][] blocks = shape.getShapeByOrientations().get(orientation);
+        boolean[][] blocks = shape.blocksByOrientation(orientation);
         List<Position> positions = new ArrayList<>();
         for (int i = 0; i < shape.getSize(); i++) {
             for (int j = 0; j < shape.getSize(); j++) {

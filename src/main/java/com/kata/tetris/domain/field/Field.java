@@ -17,6 +17,7 @@ public class Field {
     public static final int DEFAULT_HEIGHT = 24;
     private List<FieldRow> rows;
     private Tetromino currentTetromino;
+    private boolean full = false;
 
     public Field() {
         this(DEFAULT_HEIGHT);
@@ -48,7 +49,14 @@ public class Field {
 
     public void createNewTetrominoAtTop(Shape shape) {
         currentTetromino = new Tetromino(shape, height() - 1, 3);
-        placeCurrentTetromino();
+        this.full = isPossibleToPlaceNewTetromino();
+        if (!isFull()) {
+            placeCurrentTetromino();
+        }
+    }
+
+    public boolean isFull() {
+        return this.full;
     }
 
     public void rotateTetromino() {
@@ -58,7 +66,7 @@ public class Field {
         }
     }
 
-    public void moveLeftTetromino() {
+    public void moveTetrominoLeft() {
         actOnTetromino(Tetromino::moveLeft);
     }
 
@@ -87,6 +95,11 @@ public class Field {
 
     void becomesFixedBlock(int row, int column) {
         rows.set(row, rows.get(row).becomesFixedBlock(column));
+    }
+
+    private boolean isPossibleToPlaceNewTetromino() {
+        return currentTetromino.positionsOnField().stream().allMatch(position ->
+                blockAt(position.getRow(), position.getColumn()) != Block.EMPTY);
     }
 
     private int removeFullLines() {

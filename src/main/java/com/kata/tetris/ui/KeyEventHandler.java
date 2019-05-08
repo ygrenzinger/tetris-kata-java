@@ -5,6 +5,8 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import static com.kata.tetris.domain.Command.*;
+
 public class KeyEventHandler implements EventHandler<KeyEvent> {
 
     private final Tetris tetris;
@@ -15,20 +17,19 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent key) {
-        if (tetris.onGoingGame()) {
+        if (tetris.isOnGoingGame()) {
             if (key.getCode() == KeyCode.UP) {
-                tetris.rotateTetromino();
+                ROTATE.applyOn(tetris);
             }
             if (key.getCode() == KeyCode.RIGHT) {
-                tetris.moveRightTetromino();
+                RIGHT.applyOn(tetris);
             }
             if (key.getCode() == KeyCode.LEFT) {
-                tetris.moveLeftTetromino();
+                LEFT.applyOn(tetris);
             }
             if (key.getCode() == KeyCode.DOWN) {
-                tetris.moveDownTetromino();
+                DOWN.applyOn(tetris);
             }
-            tetris.updateUI();
         }
         
     }

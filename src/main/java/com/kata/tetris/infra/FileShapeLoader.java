@@ -2,6 +2,7 @@ package com.kata.tetris.infra;
 
 import com.google.gson.Gson;
 import com.kata.tetris.domain.tetromino.Shape;
+import com.kata.tetris.domain.tetromino.ShapeLoader;
 import com.kata.tetris.domain.tetromino.ShapeType;
 
 import java.io.IOException;
@@ -11,9 +12,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-class ShapeLoader {
+public class FileShapeLoader implements ShapeLoader {
 
-    Shape loadShape(ShapeType type) {
+    public Shape loadShape(ShapeType type) {
         try {
             URL resource = Shape.class.getResource(type.name() + ".json");
             Path path = Paths.get(resource.toURI());

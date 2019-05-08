@@ -88,7 +88,7 @@ class FieldTest {
     @Test
     void should_move_some_tetromino_to_the_left() {
         field.createNewTetrominoAtTop(shapeT);
-        field.moveLeftTetromino();
+        field.moveTetrominoLeft();
 
         assertThat(field.blockAt(23, 4)).isEqualTo(Block.EMPTY);
         assertThat(field.blockAt(22, 5)).isEqualTo(Block.EMPTY);
@@ -105,7 +105,7 @@ class FieldTest {
         field.createNewTetrominoAtTop(shape);
 
         field.rotateTetromino();
-        IntStream.range(0, 10).forEach(i -> field.moveLeftTetromino());
+        IntStream.range(0, 10).forEach(i -> field.moveTetrominoLeft());
 
         assertThat(field.blockAt(23, 0)).isEqualTo(Block.MOVING);
         assertThat(field.blockAt(22, 0)).isEqualTo(Block.MOVING);
@@ -145,7 +145,7 @@ class FieldTest {
         field.createNewTetrominoAtTop(shapeI);
 
         field.rotateTetromino();
-        IntStream.range(0, 10).forEach(i -> field.moveLeftTetromino());
+        IntStream.range(0, 10).forEach(i -> field.moveTetrominoLeft());
 
         field.rotateTetromino();
 
@@ -218,7 +218,7 @@ class FieldTest {
         //and I shape down into the empty column
         field.createNewTetrominoAtTop(shapeI);
         field.rotateTetromino();
-        IntStream.range(0, DEFAULT_WIDTH).forEach(i -> field.moveLeftTetromino());
+        IntStream.range(0, DEFAULT_WIDTH).forEach(i -> field.moveTetrominoLeft());
         IntStream.range(0, DEFAULT_HEIGHT).forEach(i -> field.moveTetrominoDown());
 
         //when fixing on the ground

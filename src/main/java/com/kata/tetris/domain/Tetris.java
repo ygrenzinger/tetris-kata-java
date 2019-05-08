@@ -11,23 +11,18 @@ public class Tetris {
     private final Supplier<Shape> tetromino;
     private final UpdateUI updateUI;
     private Score score;
+    private boolean started;
 
-    private boolean running;
-
-    public Tetris(UpdateUI updateUI, Supplier<Shape> tetromino) {
-        this.updateUI = updateUI;
-        this.field = new Field();
+    public Tetris(UpdateUI updateUI, Supplier<Shape> tetromino, Field field, Score score) {
         this.tetromino = tetromino;
-        this.score = new Score();
+        this.updateUI = updateUI;
+        this.field = field;
+        this.score = score;
     }
 
     public void startGame() {
         field.createNewTetrominoAtTop(tetromino.get());
-        running = true;
-    }
-
-    public void stopGame() {
-        running = false;
+        started = true;
     }
 
     public void updateGame() {
@@ -35,27 +30,20 @@ public class Tetris {
         updateUI();
     }
 
-    public void updateUI() {
-        this.updateUI.updateUI(this.field, score);
+    public boolean isGameOver() {
+        return field.isFull();
     }
 
-    public boolean onGoingGame() {
-        return running;
+    public boolean isOnGoingGame() {
+        return started && !field.isFull();
     }
 
-    public void rotateTetromino() {
-        field.rotateTetromino();
+    void apply(Command command) {
+        command.applyOn(field);
+        updateUI();
     }
 
-    public void moveRightTetromino() {
-        field.moveTetrominoRight();
-    }
-
-    public void moveLeftTetromino() {
-        field.moveLeftTetromino();
-    }
-
-    public void moveDownTetromino() {
-        field.moveTetrominoDown();
+    private void updateUI() {
+        this.updateUI.updateUI(this.field, score, field.isFull());
     }
 }

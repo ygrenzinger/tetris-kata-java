@@ -1,10 +1,8 @@
-package com.kata.tetris.infra;
+package com.kata.tetris.domain.tetromino;
 
 import com.kata.tetris.domain.field.Block;
 import com.kata.tetris.domain.field.Field;
-import com.kata.tetris.domain.tetromino.Shape;
-import com.kata.tetris.domain.tetromino.ShapeType;
-import com.kata.tetris.infra.ShapeFactory;
+import com.kata.tetris.infra.FileShapeLoader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -14,13 +12,11 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ShapeFactoryTest {
-    private ShapeFactory shapeFactory = new ShapeFactory();
-    private Map<ShapeType, Shape> shapes = shapeFactory.loadShapes();
+    private ShapeFactory shapeFactory = new ShapeFactory(new FileShapeLoader());
+    private Map<ShapeType, Shape> shapes = shapeFactory.allShapes();
 
     @Test
     void should_load_all_tetromino_shapes() {
-        ShapeFactory factory = new ShapeFactory();
-        Map<ShapeType, Shape> shapes = factory.loadShapes();
         assertThat(shapes).hasSize(7);
         assertThat(shapes).containsOnlyKeys(ShapeType.values());
     }

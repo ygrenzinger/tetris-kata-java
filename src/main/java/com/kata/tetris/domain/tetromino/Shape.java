@@ -1,7 +1,9 @@
 package com.kata.tetris.domain.tetromino;
 
 
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 
 public class Shape {
     private final ShapeType type;
@@ -24,6 +26,10 @@ public class Shape {
 
     public Map<Orientation, boolean[][]> getShapeByOrientations() {
         return shapeByOrientations;
+    }
+
+    boolean[][] blocksByOrientation(Orientation orientation) {
+        return shapeByOrientations.get(orientation);
     }
 
     String shapeForOrientationToString(Orientation orientation) {
@@ -67,5 +73,17 @@ public class Shape {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Shape shape = (Shape) o;
+        return type == shape.type &&
+                Objects.equals(size, shape.size) &&
+                Objects.equals(shapeByOrientations.keySet(), shape.shapeByOrientations.keySet()) &&
+                shapeByOrientations.keySet().stream()
+                        .allMatch(orientation -> Arrays.deepEquals(shapeByOrientations.get(orientation), shape.shapeByOrientations.get(orientation)));
     }
 }

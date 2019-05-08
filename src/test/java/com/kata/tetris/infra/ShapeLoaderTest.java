@@ -5,7 +5,6 @@ import com.kata.tetris.domain.tetromino.Shape;
 import org.junit.jupiter.api.Test;
 
 import java.net.URISyntaxException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static com.kata.tetris.domain.tetromino.ShapeTest.assertShapeForOrientation;
@@ -15,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ShapeLoaderTest {
 
-    private ShapeLoader shapeLoader = new ShapeLoader();
+    private FileShapeLoader shapeLoader = new FileShapeLoader();
 
     @Test
     void should_load_I_shape() {
