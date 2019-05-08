@@ -2,6 +2,8 @@
 
 This kata is intended to simulate a game of [Tetris](https://en.wikipedia.org/wiki/Tetris).
 
+A full wiki with lots of information on Tetris : https://tetris.fandom.com/wiki/Tetris_Wiki
+
 The point of this kata to to provide a larger than trivial exercise that can be used to practice TDD. A significant portion of the effort will be in determining what tests should be written and, more importantly, written next.
 
 Considerations:
